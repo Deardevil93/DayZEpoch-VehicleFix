@@ -1,0 +1,97 @@
+_crate = "USVehicleBox" createVehicle (position player);
+_crate setVariable ["Mission",1,true];
+
+clearWeaponCargoGlobal _crate;
+clearMagazineCargoGlobal _crate;
+
+// add weapons
+_crate addWeaponCargoGlobal ["ItemToolbox", 5];
+_crate addWeaponCargoGlobal ["ItemSledge", 5];
+_crate addWeaponCargoGlobal ["ItemCrowbar", 5];
+_crate addWeaponCargoGlobal ["ItemEtool", 5];
+_crate addWeaponCargoGlobal ["ItemMap", 5];
+_crate addWeaponCargoGlobal ["ItemKnife", 5];
+_crate addWeaponCargoGlobal ["ItemHatchet", 5];
+// add items
+_crate addMagazineCargoGlobal ["PartPlankPack", 50];
+_crate addMagazineCargoGlobal ["PartPlywoodPack", 50];
+_crate addMagazineCargoGlobal ["PartWoodPile", 100];
+_crate addMagazineCargoGlobal ["CinderBlocks", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallGarageDoor", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallGarageDoorLocked", 100];
+_crate addMagazineCargoGlobal ["ItemWoodFloorHalf", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallDoorLg", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallWithDoorLg", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallWithDoorLgLocked", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallLg", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallDoorLg", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallWindowLg", 100];
+_crate addMagazineCargoGlobal ["ItemWoodFloorQuarter", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallDoor", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallWithDoorLocked", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWall", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallDoor", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallWithDoor", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallWindow", 100];
+_crate addMagazineCargoGlobal ["ItemWoodWallThird", 100];
+_crate addMagazineCargoGlobal ["ItemWoodLadder", 100];
+_crate addMagazineCargoGlobal ["ItemWoodFloor", 100];
+_crate addMagazineCargoGlobal ["ItemWoodStairs", 100];
+_crate addMagazineCargoGlobal ["ItemWoodStairsSupport", 100];
+_crate addMagazineCargoGlobal ["CinderWallHalf_DZ", 100];
+_crate addMagazineCargoGlobal ["CinderWallDoorway_DZ", 100];
+_crate addMagazineCargoGlobal ["CinderWallDoorSmall_DZ", 100];
+_crate addMagazineCargoGlobal ["metal_floor_kit", 100];
+_crate addMagazineCargoGlobal ["ItemSandbag", 100];
+_crate addMagazineCargoGlobal ["ItemComboLock", 100];
+_crate addMagazineCargoGlobal ["ItemTentDomed", 50];
+_crate addMagazineCargoGlobal ["ItemTent", 50];
+_crate addMagazineCargoGlobal ["ItemTentDomed2", 50];
+_crate addMagazineCargoGlobal ["DeerStand_DZ", 50];
+_crate addMagazineCargoGlobal ["MetalPanel_DZ", 50];
+_crate addMagazineCargoGlobal ["cinder_wall_kit", 100];
+_crate addMagazineCargoGlobal ["MortarBucket", 100];
+_crate addMagazineCargoGlobal ["metal_floor_kit", 100];
+_crate addMagazineCargoGlobal ["light_pole_kit", 100];
+_crate addMagazineCargoGlobal ["ItemPole",100];
+_crate addMagazineCargoGlobal ["ItemTankTrap",100];
+_crate addMagazineCargoGlobal ["ItemWire",100];
+_crate addMagazineCargoGlobal ["stick_fence_kit", 100];
+_crate addMagazineCargoGlobal ["WorkBench_DZ", 100];
+_crate addMagazineCargoGlobal ["CinderWall_DZ", 100];
+_crate addMagazineCargoGlobal ["CinderWallDoorway_DZ", 100];
+_crate addMagazineCargoGlobal ["CinderWallDoorSmall_DZ", 100];
+_crate addMagazineCargoGlobal ["ItemCorrugated", 100];
+_crate addMagazineCargoGlobal ["ItemSandbag", 100];
+_crate addMagazineCargoGlobal ["ItemSandbagLarge", 100];
+_crate addMagazineCargoGlobal ["Wooden_shed_DZ", 100];
+_crate addMagazineCargoGlobal ["WoodShack_DZ", 100];
+_crate addMagazineCargoGlobal ["StickFence_DZ", 100];
+_crate addMagazineCargoGlobal ["SandNest_DZ", 100];
+_crate addMagazineCargoGlobal ["CanvasHut_DZ", 100];
+_crate addMagazineCargoGlobal ["StorageShed_DZ", 100];
+_crate addMagazineCargoGlobal ["DeerStand_DZ", 100];
+_crate addMagazineCargoGlobal ["MetalPanel_DZ", 100];
+_crate addMagazineCargoGlobal["ItemVault",50];
+_crate addMagazineCargoGlobal["ItemMixOil",50];
+
+//Documents
+_crate addMagazineCargoGlobal ["ItemDocument", 50];
+_crate addMagazineCargoGlobal ["ItemLetter", 50];
+_crate addMagazineCargoGlobal ["ItemBook1", 50];
+_crate addMagazineCargoGlobal ["ItemBook2", 50];
+_crate addMagazineCargoGlobal ["ItemBook3", 50];
+_crate addMagazineCargoGlobal ["ItemBook4", 50];
+_crate addMagazineCargoGlobal ["ItemNewspaperl", 50];
+_crate addMagazineCargoGlobal ["ItemORP", 50];
+_crate addMagazineCargoGlobal ["ItemAVE", 50];
+_crate addMagazineCargoGlobal ["ItemLRK", 50];
+_crate addMagazineCargoGlobal ["ItemTNK", 50];
+_crate addMagazineCargoGlobal ["ItemPlotDeed", 50];
+_crate addMagazineCargoGlobal ["ItemDocumentRamp", 50];
+
+
+_crate attachto [player, [0,3,1.7]];
+sleep 5;
+detach _crate;
+player reveal _crate;
