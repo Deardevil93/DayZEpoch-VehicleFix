@@ -37,14 +37,38 @@ _state = 		[];
 //Do Connection Attempt
 _doLoop = 0;
 while {_doLoop < 5} do {
-	_key = format["CHILD:102:%1:",_characterID];
-	_primary = _key call server_hiveReadWrite;
-	if (count _primary > 0) then {
-		if ((_primary select 0) != "ERROR") then {
-			_doLoop = 9;
-		};
-	};
-	_doLoop = _doLoop + 1;
+    _key = format["CHILD:102:%1:",_characterID];
+    diag_log (_key);
+    _key = format["\cache\players\%1\%2-char.sqf", MyPlayerCounter, _playerID];
+    diag_log ("LOAD CHARACTER: "+_key);        
+    _res = preprocessFile _key;
+    diag_log ("CHARACTER CACHE: "+_res);
+
+    if ((_res == "") or (isNil "_res")) then {
+        _key = format["\cache\players\%1\%2-char.sqf", (MyPlayerCounter - 1), _playerID];
+        diag_log ("BACKLOAD CHARACTER: "+_key);
+        _res = preprocessFile _key;
+        diag_log ("CHARACTER CACHE: "+_res);
+    };
+    if ((_res == "") or (isNil "_res")) then {
+        _res = preprocessFile "\cache\players\default-char.sqf";
+        diag_log ("CHARACTER DEFAULT CACHE: "+_res);
+        if ((_res == "") or (isNil "_res")) then {
+            _primary = ["PASS",[],[0,0,0,0],[],[],2500,1];
+        } else {
+            _primary = call compile _res;
+        };
+    } else {
+        _primary = call compile _res;
+    };
+    _res = nil;
+
+    if (count _primary > 0) then {
+	if ((_primary select 0) != "ERROR") then {
+	    _doLoop = 9;
+        };
+    };
+    _doLoop = _doLoop + 1;
 };
 
 if (isNull _playerObj or !isPlayer _playerObj) exitWith {
@@ -59,10 +83,15 @@ _stats =		_primary select 2;
 _state =		_primary select 3;
 _worldspace = 	_primary select 4;
 _humanity =		_primary select 5;
-_lastinstance =	_primary select 6;
+_characterID =	_primary select 6;
+_lastinstance =	dayZ_instance;
+
+diag_log format["_characterID: %1", _characterID];
 
 //Set position
 _randomSpot = false;
+
+diag_log ("WORLDSPACE: " + str(_worldspace));
 
 if (count _worldspace > 0) then {
 
@@ -92,7 +121,7 @@ if (count _worldspace > 0) then {
 	_randomSpot = true;
 };
 
-//diag_log ("LOGIN: Location: " + str(_worldspace) + " doRnd?: " + str(_randomSpot));
+diag_log ("LOGIN: Location: " + str(_worldspace) + " doRnd?: " + str(_randomSpot));
 
 //set medical values
 if (count _medical > 0) then {
@@ -222,6 +251,8 @@ if (_randomSpot) then {
 	};
 };
 
+diag_log ("SETUP WORLDSPACE: " + str(_worldspace));
+
 //Record player for management
 dayz_players set [count dayz_players,_playerObj];
 
@@ -241,7 +272,10 @@ if (!isNull _playerObj) then {
 	_clientID publicVariableClient "dayzPlayerLogin2";
 	
 	if (isNil "PVDZE_plr_SetDate") then {
-		call server_timeSync;
+	    //call server_timeSync;
+            diag_log ("TIME SYNC ERROR!");
+            PVDZE_plr_SetDate = date;
+            publicVariable "PVDZE_plr_SetDate";
 	};
 	_clientID publicVariableClient "PVDZE_plr_SetDate";
 };

@@ -28,7 +28,8 @@ if ((typeName _objectID != "string") || (typeName _uid != "string")) then
 if (_object getVariable "Sarge" == 1) exitWith {};
 
 if (!_parachuteWest and !(locked _object)) then {
-	if (_objectID == "0" && _uid == "0" && (vehicle _object getVariable ["Sarge",0] != 1)) then
+//	if (_objectID == "0" && _uid == "0") then
+if (_objectID == "0" && _uid == "0" && (vehicle _object getVariable ["Sarge",0] != 1)) then
 	{
 		_object_position = getPosATL _object;
     	_isNotOk = true;
@@ -57,9 +58,7 @@ _object_position = {
 		if (_object isKindOf "AllVehicles") then {
 			_fuel = fuel _object;
 		};
-		_key = format["CHILD:305:%1:%2:%3:",_objectID,_worldspace,_fuel];
-		//diag_log ("HIVE: WRITE: "+ str(_key));
-		_key call server_hiveWrite;
+		diag_log format["CHILD:305:%1:%2:%3:",_objectID,_worldspace,_fuel];
 };
 
 _object_inventory = {
@@ -77,8 +76,20 @@ _object_inventory = {
 			} else {
 				_key = format["CHILD:303:%1:%2:",_objectID,_inventory];
 			};
-			//diag_log ("HIVE: WRITE: "+ str(_key));
-			_key call server_hiveWrite;
+                        if ( count(toArray(_key)) > 1020 ) then {
+                            diag_log ("Prevent diag_log limit...");
+                            if (_objectID == "0") then {
+                                diag_log format["CHILD:39:%1:0:%2:", _uid, _inventory select 0]; // weapons
+                                diag_log format["CHILD:39:%1:1:%2:", _uid, _inventory select 1]; // magazines
+                                diag_log format["CHILD:39:%1:2:%2:", _uid, _inventory select 2]; // backpack
+                            } else {
+                                diag_log format["CHILD:33:%1:0:%2:", _objectID, _inventory select 0]; // weapons
+                                diag_log format["CHILD:33:%1:1:%2:", _objectID, _inventory select 1]; // magazines
+                                diag_log format["CHILD:33:%1:2:%2:", _objectID, _inventory select 2]; // backpack  
+                            };
+                        } else {
+                            diag_log (_key);
+                        };
 		};
 };
 
@@ -94,11 +105,9 @@ _object_damage = {
 			_object setHit ["_selection", _hit]
 		} forEach _hitpoints;
 	
-		_key = format["CHILD:306:%1:%2:%3:",_objectID,_array,_damage];
-		//diag_log ("HIVE: WRITE: "+ str(_key));
-		_key call server_hiveWrite;
-	_object setVariable ["needUpdate",false,true];
-	};
+		diag_log format["CHILD:306:%1:%2:%3:",_objectID,_array,_damage];
+	        _object setVariable ["needUpdate",false,true];
+};
 
 _object_killed = {
 	private["_hitpoints","_array","_hit","_selection","_key","_damage"];
@@ -115,12 +124,10 @@ _object_killed = {
 	} forEach _hitpoints;
 	
 	if (_objectID == "0") then {
-		_key = format["CHILD:306:%1:%2:%3:",_uid,_array,_damage];
+		diag_log format["CHILD:306:%1:%2:%3:",_uid,_array,_damage];
 	} else {
-		_key = format["CHILD:306:%1:%2:%3:",_objectID,_array,_damage];
+		diag_log format["CHILD:306:%1:%2:%3:",_objectID,_array,_damage];
 	};
-	//diag_log ("HIVE: WRITE: "+ str(_key));
-	_key call server_hiveWrite;
 	_object setVariable ["needUpdate",false,true];
 };
 
@@ -136,9 +143,7 @@ _object_repair = {
 		_object setHit ["_selection", _hit]
 	} forEach _hitpoints;
 	
-	_key = format["CHILD:306:%1:%2:%3:",_objectID,_array,_damage];
-	//diag_log ("HIVE: WRITE: "+ str(_key));
-	_key call server_hiveWrite;
+	diag_log format["CHILD:306:%1:%2:%3:",_objectID,_array,_damage];
 	_object setVariable ["needUpdate",false,true];
 };
 // TODO ----------------------

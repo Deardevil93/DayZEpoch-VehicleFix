@@ -82,14 +82,11 @@ if (typeName _minutes == "STRING") then
 };
 
 diag_log ("PDEATH: Player Died " + _playerID);
+diag_log format["_characterID: %1, _playerID: %2", _characterID, _playerID];
 
 if (_characterID != "0") then 
 {
-	_key = format["CHILD:202:%1:%2:%3:",_characterID,_minutes,_infected];
-	#ifdef DZE_SERVER_DEBUG_HIVE
-	diag_log ("HIVE: WRITE: "+ str(_key));
-	#endif
-	_key call server_hiveWrite;
+	diag_log format["CHILD:202:%1:%2:%3:%4:",_characterID,_minutes,_playerID,_infected];
 } 
 else 
 {

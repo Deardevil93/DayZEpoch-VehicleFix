@@ -34,11 +34,11 @@ epoch_eventIsAny = {
 while {true} do {
 	
 	// Find current time from server
-	_key = "CHILD:307:";
-	_result = _key call server_hiveReadWrite;
-	_outcome = _result select 0;
-	if(_outcome == "PASS") then {
-		_date = _result select 1;
+//	_key = "CHILD:307:";
+//	_result = _key call server_hiveReadWrite;
+//	_outcome = _result select 0;
+//	if(_outcome == "PASS") then {
+		_date = date; //_result select 1;
 		_datestr  = str(_date);
 		if (EventSchedulerLastTime != _datestr) then {
 			
@@ -56,6 +56,7 @@ while {true} do {
 				};
 			} forEach EpochEvents;
 		};
-	};
+//	};
 	sleep 10;
 };
+

@@ -3,7 +3,7 @@ The following files are here to fix teleporting and vehicle spawning on DayZ Epo
 Current Versions are:
 
 Windows: 1.0.4.2
-Linux: 1.0.4
+Linux: 1.0.4.2
 
 mission.pbo Includes:
 ========================
@@ -18,3 +18,6 @@ Wicked AI (Linux Only)
 
 
 if you need any help, Send a Issue Request
+
+
+Thanks to Devd for providing the Linux Server Files

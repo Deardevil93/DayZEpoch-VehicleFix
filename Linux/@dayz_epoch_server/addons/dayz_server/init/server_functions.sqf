@@ -14,6 +14,8 @@ BIS_MPF_remoteExecutionServer = {
 	};
 };*/
 
+MyPlayerCounter = 1;
+
 BIS_Effects_Burn =				{};
 server_playerLogin =			compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_playerLogin.sqf";
 server_playerSetup =			compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\server_playerSetup.sqf";
@@ -163,22 +165,25 @@ eh_localCleanup = {
 
 server_hiveWrite = {
 	private["_data"];
-	_data = "HiveExt" callExtension _this;
+        diag_log ("ATTEMPT WRITE: " + _this);
+	//_data = "HiveExt" callExtension _this;
 };
 
 server_hiveReadWrite = {
 	private["_key","_resultArray","_data"];
 	_key = _this;
-	_data = "HiveExt" callExtension _key;
-	_resultArray = call compile format ["%1",_data];
+        diag_log ("ATTEMPT READ/WRITE: " + _key);
+	//_data = "HiveExt" callExtension _key;
+	_resultArray = nil; //call compile format ["%1",_data];
 	_resultArray
 };
 
 server_hiveReadWriteLarge = {
 	private["_key","_resultArray","_data"];
 	_key = _this;
-	_data = "HiveExt" callExtension _key;
-	_resultArray = call compile _data;
+        diag_log ("ATTEMPT READ/WRITE LARGE: " + _key);
+	//_data = "HiveExt" callExtension _key;
+	_resultArray = nil; //call compile _data;
 	_resultArray
 };
 
@@ -207,8 +212,7 @@ server_characterSync = {
 	_currentState =	_this select 5;
 	_currentModel = _this select 6;
 	
-	_key = format["CHILD:201:%1:%2:%3:%4:%5:%6:%7:%8:%9:%10:%11:%12:%13:%14:%15:%16:",_characterID,_playerPos,_playerGear,_playerBackp,_medical,false,false,0,0,0,0,_currentState,0,0,_currentModel,0];
-	_key call server_hiveWrite;
+	diag_log format["CHILD:201:%1:%2:%3:%4:%5:%6:%7:%8:%9:%10:%11:%12:%13:%14:%15:%16:",_characterID,_playerPos,_playerGear,_playerBackp,_medical,false,false,0,0,0,0,_currentState,0,0,_currentModel,0];
 };
 
 if(isnil "dayz_MapArea") then {
@@ -619,8 +623,7 @@ dayz_objectUID3 = {
 
 dayz_recordLogin = {
 	private["_key"];
-	_key = format["CHILD:103:%1:%2:%3:",_this select 0,_this select 1,_this select 2];
-	_key call server_hiveWrite;
+	diag_log format["CHILD:103:%1:%2:%3:",_this select 0,_this select 1,_this select 2];
 };
 
 dayz_perform_purge = {
@@ -727,24 +730,25 @@ dayz_removePlayerOnDisconnect = {
 server_timeSync = {
 	//Send request
 	private ["_hour","_minute","_date","_key","_result","_outcome"];
-    _key = "CHILD:307:";
-	_result = _key call server_hiveReadWrite;
-	_outcome = _result select 0;
-	if(_outcome == "PASS") then {
-		_date = _result select 1; 
-		
-		if(dayz_fullMoonNights) then {
-			_hour = _date select 3;
-			_minute = _date select 4;
-			//Force full moon nights
-			_date = [2013,8,3,_hour,_minute];
-		};
-
-		setDate _date;
-		PVDZE_plr_SetDate = _date;
-		publicVariable "PVDZE_plr_SetDate";
-		diag_log ("TIME SYNC: Local Time set to " + str(_date));	
-	};
+        diag_log ("server_timeSync(): " + str(date));
+        //_key = "CHILD:307:";
+	//_result = _key call server_hiveReadWrite;
+	//_outcome = _result select 0;
+	//if(_outcome == "PASS") then {
+	//	_date = _result select 1; 
+	//	
+	//	if(dayz_fullMoonNights) then {
+	//		_hour = _date select 3;
+	//		_minute = _date select 4;
+	//		//Force full moon nights
+	//		_date = [2013,8,3,_hour,_minute];
+	//	};
+        //
+	//	setDate _date;
+	//	PVDZE_plr_SetDate = _date;
+	//	publicVariable "PVDZE_plr_SetDate";
+	//	diag_log ("TIME SYNC: Local Time set to " + str(_date));	
+	//};
 };
 
 // must spawn these 
@@ -796,7 +800,8 @@ server_checkHackers = {
 	if(!isNil "DZE_DYN_HackerCheck") exitWith {  DZE_DYN_AntiStuck2nd = DZE_DYN_AntiStuck2nd + 1;};
 	DZE_DYN_HackerCheck = true;
 	{
-		if (vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x) && (vehicle _x getVariable ["Mission",0] != 1) && (vehicle _x getVariable ["Sarge",0] != 1) && !((typeOf vehicle _x) in DZE_safeVehicle)) then {
+//		if(vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x)  && !((typeOf vehicle _x) in DZE_safeVehicle)) then {
+		if (vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x) && (vehicle _x getVariable ["Mission",0] != 1) && (vehicle _x getVariable ["Sarge",0] != 1) && !((typeOf vehicle _x) in DZE_safeVehicle)) then {		
 			diag_log ("CLEANUP: KILLING A HACKER " + (name _x) + " " + str(_x) + " IN " + (typeOf vehicle _x));
 			(vehicle _x) setDamage 1;
 			_x setDamage 1;
