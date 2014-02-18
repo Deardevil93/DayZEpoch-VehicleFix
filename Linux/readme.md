@@ -2,6 +2,8 @@ WARNING!!
 
 THESE ARE ONLY FOR LINUX SERVERS/ THESE WILL NOT WORK ON WINDOWS
 
+These are the Linux Files for DayZ Epoch 1.0.4.2 Blue Phoenix Fix
+
 mission.pbo Includes:
 ========================
 Blue-Phoenix Admin Tools
@@ -11,7 +13,6 @@ and SARGE
 server.pbo Includes:
 ========================
 Vehicle Spawn Fix
-Wicked AI (Linux Only)
 
 If you don't wish to use these files here is the manual way of fixing the files 
 
@@ -97,3 +98,5 @@ if (vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer 
 ```
 
 if you need any help, Send a Issue Request
+
+Thanks to Devd for providing Linux Server Files,
